@@ -31,6 +31,11 @@ class Airport
      */
     private $aircraftCapacity;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\City", inversedBy="airports")
+     */
+    private $city;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -68,6 +73,18 @@ class Airport
     public function setAircraftCapacity(int $aircraftCapacity): self
     {
         $this->aircraftCapacity = $aircraftCapacity;
+
+        return $this;
+    }
+
+    public function getCity(): ?City
+    {
+        return $this->city;
+    }
+
+    public function setCity(?City $city): self
+    {
+        $this->city = $city;
 
         return $this;
     }
