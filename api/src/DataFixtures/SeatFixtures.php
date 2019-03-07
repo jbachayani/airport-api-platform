@@ -8,7 +8,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker;
 
-class AircraftFixtures extends Fixture implements DependentFixtureInterface
+class SeatFixtures extends Fixture implements DependentFixtureInterface
 {
     const QT = 2000;
 
