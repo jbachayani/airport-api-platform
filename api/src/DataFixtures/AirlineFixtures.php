@@ -20,7 +20,7 @@ class AirlineFixtures extends Fixture
             $airline->setName($faker->name);
             $airline->setAddress($faker->address);
             $airline->setActive($faker->boolean);
-            $airline->setCode($faker->regexify('[A-Z]{3}'));
+            $airline->setCode($faker->unique()->numberBetween($min = 000, $max = 999));
             $airline->setCreationDate($faker->dateTime);
             $manager->persist($airline);
         }

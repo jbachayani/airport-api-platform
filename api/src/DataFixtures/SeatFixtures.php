@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Aircraft;
 use App\Entity\Seat;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
