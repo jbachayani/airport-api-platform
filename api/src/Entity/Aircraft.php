@@ -60,9 +60,15 @@ class Aircraft
      */
     private $airline;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\FlightSchedule", mappedBy="aircraft")
+     */
+    private $flightSchedules;
+
     public function __construct()
     {
         $this->seats = new ArrayCollection();
+        $this->flightSchedules = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -181,6 +187,37 @@ class Aircraft
     public function setAirline(?Airline $airline): self
     {
         $this->airline = $airline;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|FlightSchedule[]
+     */
+    public function getFlightSchedules(): Collection
+    {
+        return $this->flightSchedules;
+    }
+
+    public function addFlightSchedule(FlightSchedule $flightSchedule): self
+    {
+        if (!$this->flightSchedules->contains($flightSchedule)) {
+            $this->flightSchedules[] = $flightSchedule;
+            $flightSchedule->setAircraft($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFlightSchedule(FlightSchedule $flightSchedule): self
+    {
+        if ($this->flightSchedules->contains($flightSchedule)) {
+            $this->flightSchedules->removeElement($flightSchedule);
+            // set the owning side to null (unless already changed)
+            if ($flightSchedule->getAircraft() === $this) {
+                $flightSchedule->setAircraft(null);
+            }
+        }
 
         return $this;
     }
