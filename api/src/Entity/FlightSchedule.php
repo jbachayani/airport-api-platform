@@ -34,7 +34,7 @@ class FlightSchedule
     /**
      * @ORM\Column(type="integer")
      */
-    private $tiÃmeOfFlying;
+    private $tiï¿½meOfFlying;
 
     /**
      * @ORM\Column(type="string", length=100)
@@ -87,14 +87,14 @@ class FlightSchedule
         return $this;
     }
 
-    public function getTiÃmeOfFlying(): ?int
+    public function getTiï¿½meOfFlying(): ?int
     {
-        return $this->tiÃmeOfFlying;
+        return $this->tiï¿½meOfFlying;
     }
 
-    public function setTiÃmeOfFlying(int $tiÃmeOfFlying): self
+    public function setTiï¿½meOfFlying(int $tiï¿½meOfFlying): self
     {
-        $this->tiÃmeOfFlying = $tiÃmeOfFlying;
+        $this->tiï¿½meOfFlying = $tiï¿½meOfFlying;
 
         return $this;
     }
