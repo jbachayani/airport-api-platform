@@ -53,9 +53,14 @@ class Passenger
      */
     private $baggage;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\PassengerHasFlight", mappedBy="passengers")
+     */
+    private $passengerHasFlights;
+
     public function __construct()
     {
-        $this->passengers = new ArrayCollection();
+        $this->passengerHasFlights = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -143,6 +148,34 @@ class Passenger
     public function setBaggage(int $baggage): self
     {
         $this->baggage = $baggage;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PassengerHasFlight[]
+     */
+    public function getPassengerHasFlights(): Collection
+    {
+        return $this->passengerHasFlights;
+    }
+
+    public function addPassengerHasFlight(PassengerHasFlight $passengerHasFlight): self
+    {
+        if (!$this->passengerHasFlights->contains($passengerHasFlight)) {
+            $this->passengerHasFlights[] = $passengerHasFlight;
+            $passengerHasFlight->addPassenger($this);
+        }
+
+        return $this;
+    }
+
+    public function removePassengerHasFlight(PassengerHasFlight $passengerHasFlight): self
+    {
+        if ($this->passengerHasFlights->contains($passengerHasFlight)) {
+            $this->passengerHasFlights->removeElement($passengerHasFlight);
+            $passengerHasFlight->removePassenger($this);
+        }
 
         return $this;
     }
