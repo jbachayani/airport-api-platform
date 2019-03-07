@@ -9,13 +9,12 @@ use Faker;
 
 class AirlineFixtures extends Fixture
 {
-    const QT = 100;
+    const QT = 80;
 
     public function load(ObjectManager $manager)
     {
         $faker = Faker\Factory::create('fr_FR');
 
-        // on créé 10 personnes
         for ($i = 0; $i < self::QT; $i++) {
             $airline = new Airline();
             $airline->setName($faker->name);

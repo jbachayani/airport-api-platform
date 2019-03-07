@@ -9,13 +9,12 @@ use Faker;
 
 class ManufacturerFixtures extends Fixture
 {
-    const QT = 100;
+    const QT = 30;
 
     public function load(ObjectManager $manager)
     {
         $faker = Faker\Factory::create('fr_FR');
 
-        // on créé 10 personnes
         for ($i = 0; $i < self::QT; $i++) {
             $manufacturer = new Manufacturer();
             $manufacturer->setName($faker->name);
