@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -45,6 +47,16 @@ class FlightSchedule
      * @ORM\ManyToOne(targetEntity="App\Entity\Aircraft", inversedBy="flightSchedules")
      */
     private $aircraft;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\PassengerHasFlight", mappedBy="flightSchedules")
+     */
+    private $passengerHasFlights;
+
+    public function __construct()
+    {
+        $this->passengerHasFlights = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -119,6 +131,34 @@ class FlightSchedule
     public function setAircraft(?Aircraft $aircraft): self
     {
         $this->aircraft = $aircraft;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PassengerHasFlight[]
+     */
+    public function getPassengerHasFlights(): Collection
+    {
+        return $this->passengerHasFlights;
+    }
+
+    public function addPassengerHasFlight(PassengerHasFlight $passengerHasFlight): self
+    {
+        if (!$this->passengerHasFlights->contains($passengerHasFlight)) {
+            $this->passengerHasFlights[] = $passengerHasFlight;
+            $passengerHasFlight->addFlightSchedule($this);
+        }
+
+        return $this;
+    }
+
+    public function removePassengerHasFlight(PassengerHasFlight $passengerHasFlight): self
+    {
+        if ($this->passengerHasFlights->contains($passengerHasFlight)) {
+            $this->passengerHasFlights->removeElement($passengerHasFlight);
+            $passengerHasFlight->removeFlightSchedule($this);
+        }
 
         return $this;
     }
