@@ -54,7 +54,7 @@ class Passenger
     private $baggage;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\PassengerHasFlight", mappedBy="passengers")
+     * @ORM\OneToMany(targetEntity="App\Entity\PassengerHasFlight", mappedBy="passengers")
      */
     private $passengerHasFlights;
 
@@ -164,7 +164,7 @@ class Passenger
     {
         if (!$this->passengerHasFlights->contains($passengerHasFlight)) {
             $this->passengerHasFlights[] = $passengerHasFlight;
-            $passengerHasFlight->addPassenger($this);
+            $passengerHasFlight->setPassengers($this);
         }
 
         return $this;
@@ -174,7 +174,10 @@ class Passenger
     {
         if ($this->passengerHasFlights->contains($passengerHasFlight)) {
             $this->passengerHasFlights->removeElement($passengerHasFlight);
-            $passengerHasFlight->removePassenger($this);
+            // set the owning side to null (unless already changed)
+            if ($passengerHasFlight->getPassengers() === $this) {
+                $passengerHasFlight->setPassengers(null);
+            }
         }
 
         return $this;

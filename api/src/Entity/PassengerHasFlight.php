@@ -19,81 +19,23 @@ class PassengerHasFlight
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Passenger", inversedBy="passengerHasFlights")
-     */
-    private $passengers;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\FlightSchedule", inversedBy="passengerHasFlights")
-     */
-    private $flightSchedules;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Seat", inversedBy="passengerHasFlights")
      */
     private $seats;
 
-    public function __construct()
-    {
-        $this->passengers = new ArrayCollection();
-        $this->flightSchedules = new ArrayCollection();
-    }
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Passenger", inversedBy="passengerHasFlights")
+     */
+    private $passengers;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\FlightSchedule", inversedBy="passengerHasFlights")
+     */
+    private $flightSchedules;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    /**
-     * @return Collection|Passenger[]
-     */
-    public function getPassengers(): Collection
-    {
-        return $this->passengers;
-    }
-
-    public function addPassenger(Passenger $passenger): self
-    {
-        if (!$this->passengers->contains($passenger)) {
-            $this->passengers[] = $passenger;
-        }
-
-        return $this;
-    }
-
-    public function removePassenger(Passenger $passenger): self
-    {
-        if ($this->passengers->contains($passenger)) {
-            $this->passengers->removeElement($passenger);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|FlightSchedule[]
-     */
-    public function getFlightSchedules(): Collection
-    {
-        return $this->flightSchedules;
-    }
-
-    public function addFlightSchedule(FlightSchedule $flightSchedule): self
-    {
-        if (!$this->flightSchedules->contains($flightSchedule)) {
-            $this->flightSchedules[] = $flightSchedule;
-        }
-
-        return $this;
-    }
-
-    public function removeFlightSchedule(FlightSchedule $flightSchedule): self
-    {
-        if ($this->flightSchedules->contains($flightSchedule)) {
-            $this->flightSchedules->removeElement($flightSchedule);
-        }
-
-        return $this;
     }
 
     public function getSeats(): ?Seat
@@ -104,6 +46,30 @@ class PassengerHasFlight
     public function setSeats(?Seat $seats): self
     {
         $this->seats = $seats;
+
+        return $this;
+    }
+
+    public function getPassengers(): ?Passenger
+    {
+        return $this->passengers;
+    }
+
+    public function setPassengers(?Passenger $passengers): self
+    {
+        $this->passengers = $passengers;
+
+        return $this;
+    }
+
+    public function getFlightSchedules(): ?FlightSchedule
+    {
+        return $this->flightSchedules;
+    }
+
+    public function setFlightSchedules(?FlightSchedule $flightSchedules): self
+    {
+        $this->flightSchedules = $flightSchedules;
 
         return $this;
     }

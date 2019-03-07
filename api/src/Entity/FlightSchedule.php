@@ -49,7 +49,7 @@ class FlightSchedule
     private $aircraft;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\PassengerHasFlight", mappedBy="flightSchedules")
+     * @ORM\OneToMany(targetEntity="App\Entity\PassengerHasFlight", mappedBy="flightSchedules")
      */
     private $passengerHasFlights;
 
@@ -147,7 +147,7 @@ class FlightSchedule
     {
         if (!$this->passengerHasFlights->contains($passengerHasFlight)) {
             $this->passengerHasFlights[] = $passengerHasFlight;
-            $passengerHasFlight->addFlightSchedule($this);
+            $passengerHasFlight->setFlightSchedules($this);
         }
 
         return $this;
@@ -157,7 +157,10 @@ class FlightSchedule
     {
         if ($this->passengerHasFlights->contains($passengerHasFlight)) {
             $this->passengerHasFlights->removeElement($passengerHasFlight);
-            $passengerHasFlight->removeFlightSchedule($this);
+            // set the owning side to null (unless already changed)
+            if ($passengerHasFlight->getFlightSchedules() === $this) {
+                $passengerHasFlight->setFlightSchedules(null);
+            }
         }
 
         return $this;
