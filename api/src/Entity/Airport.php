@@ -13,6 +13,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Airport
 {
     /**
+     * @var int
+     *
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
