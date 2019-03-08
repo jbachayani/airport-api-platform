@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource
@@ -21,22 +22,41 @@ class Passenger
     private $id;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string", length=120)
+     * @Assert\NotNull
+     * @Assert\Type(type="string")
      */
     private $lastName;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string", length=120)
+     * @Assert\NotNull
+     * @Assert\Type(type="string")
      */
     private $firstName;
 
     /**
+     * @var \DateTime
+     *
      * @ORM\Column(type="date")
+     * @Assert\Datetime
      */
     private $birthDate;
 
     /**
-     * @ORM\Column(type="string", length=320)
+     * @var string
+     *
+     * @ORM\Column(type="string", length=320, nullable=false, unique=true)
+     * @Assert\NotNull
+     * @Assert\Type(type="string")
+     * @Assert\Email(
+     *     message = "The email '{{ value }}' is not a valid email.",
+     *     checkMX = false
+     * )
      */
     private $email;
 
