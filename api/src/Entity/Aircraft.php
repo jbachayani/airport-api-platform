@@ -89,6 +89,11 @@ class Aircraft
      */
     private $flightSchedules;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $seatAvailable;
+
     public function __construct()
     {
         $this->seats = new ArrayCollection();
@@ -242,6 +247,18 @@ class Aircraft
                 $flightSchedule->setAircraft(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSeatAvailable(): ?int
+    {
+        return $this->seatAvailable;
+    }
+
+    public function setSeatAvailable(int $seatAvailable): self
+    {
+        $this->seatAvailable = $seatAvailable;
 
         return $this;
     }
