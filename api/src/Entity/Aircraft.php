@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
@@ -28,6 +29,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class Aircraft
 {
     /**
+     * @var int
+     *
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -35,45 +38,64 @@ class Aircraft
     private $id;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string", length=80)
      * @Groups({"aircraft_read", "aircraft_write"})
+     * @Assert\NotNull
+     * @Assert\Type(type="string")
      */
     private $serialNumber;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string", length=255)
      * @Groups({"aircraft_read", "aircraft_write"})
+     * @Assert\NotNull
+     * @Assert\Type(type="string")
      */
     private $model;
 
     /**
+     * @var int
+     *
      * @ORM\Column(type="integer", nullable=true)
      * @Groups({"aircraft_read", "aircraft_write"})
+     * @Assert\Type(type="int")
      */
     private $capacity;
 
     /**
+     * @var float
+     *
      * @ORM\Column(type="float", nullable=true)
      * @Groups({"aircraft_read", "aircraft_write"})
+     * @Assert\Type(type="float")
      */
     private $weight;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string", length=255)
      * @Groups({"aircraft_read", "aircraft_write"})
+     * @Assert\NotNull
+     * @Assert\Type(type="string")
      */
     private $type;
 
     /**
+     * @ApiSubresource()
      * @ORM\OneToMany(targetEntity="App\Entity\Seat", mappedBy="aircraft")
      * @Groups({"aircraft_read", "aircraft_write"})
-     * @ApiSubresource()
      */
     private $seats;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Manufacturer", inversedBy="aircrafts")
      * @Groups({"aircraft_read", "aircraft_write"})
+     * @Assert\NotNull
      */
     private $manufacturer;
 

@@ -15,6 +15,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 class User implements UserInterface
 {
     /**
+     * @var int
+     *
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -22,18 +24,24 @@ class User implements UserInterface
     private $id;
 
     /**
+     * @var string
+     *
      * @Assert\NotNull
      * @ORM\Column(type="string", length=120)
      */
     private $lastname;
 
     /**
+     * @var string
+     *
      * @Assert\NotNull
      * @ORM\Column(type="string", length=120)
      */
     private $firstname;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string", length=320)
      * @Assert\NotNull
      * @Assert\Type(type="string")
@@ -45,6 +53,8 @@ class User implements UserInterface
     private $email;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string", length=255)
      * @Assert\NotNull
      * @Assert\Type(type="string")
