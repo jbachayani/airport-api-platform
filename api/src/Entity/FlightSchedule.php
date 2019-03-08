@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource
@@ -14,6 +15,8 @@ use Doctrine\ORM\Mapping as ORM;
 class FlightSchedule
 {
     /**
+     * @var int
+     *
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -21,27 +24,53 @@ class FlightSchedule
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=16)
+     * @var string
+     *
+     * @ORM\Column(type="string", length=16, nullable=false, unique=true)
+     * @Assert\Length(
+     *      max = 16,
+     *      maxMessage = "The code cannot be longer than {{ limit }} characters."
+     * )
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]{16}/",
+     *     match=true,
+     *     message="Your code can only contain alphanumeric char."
+     * )
      */
     private $code;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @var \Datetime
+     *
+     * @ORM\Column(type="datetime", nullable=false)
+     * @Assert\DateTime
+     * @Assert\NotNull
      */
     private $depertureDate;
 
     /**
+     * @var \Datetime
+     *
      * @ORM\Column(type="datetime")
+     * @Assert\DateTime
      */
     private $arrivalDate;
 
     /**
-     * @ORM\Column(type="integer")
+     * @var int
+     *
+     * @ORM\Column(type="integer", nullable=false)
+     * @Assert\Type(type="int")
+     * @Assert\NotNull
      */
     private $timeOfFlying;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string", length=100)
+     * @Assert\Type(type="string")
+     * @Assert\NotNull
      */
     private $state;
 
