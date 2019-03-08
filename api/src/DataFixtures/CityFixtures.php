@@ -12,6 +12,7 @@ use Faker;
 class CityFixtures extends Fixture implements DependentFixtureInterface
 {
     const QT = 1200;
+    const FLUSH_LIMIT = 200;
 
     public function load(ObjectManager $manager)
     {
@@ -24,6 +25,15 @@ class CityFixtures extends Fixture implements DependentFixtureInterface
             $city->setName($faker->city);
             $city->setCountry($faker->randomElement($countries));
             $manager->persist($city);
+            
+            // Prevent Memory error
+            if ($i % self::FLUSH_LIMIT == 0) {
+                $manager->flush();
+            }
+        }
+
+        if (self::QT > 0 && self::QT % self::FLUSH_LIMIT != 0) {
+            $manager->flush();
         }
 
         $manager->flush();

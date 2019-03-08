@@ -10,7 +10,8 @@ use Faker;
 
 class PassengerFixtures extends Fixture implements DependentFixtureInterface
 {
-    const QT = 1000;
+    const QT = 5000;
+    const FLUSH_LIMIT = 200;
 
     public function load(ObjectManager $manager)
     {
@@ -28,9 +29,16 @@ class PassengerFixtures extends Fixture implements DependentFixtureInterface
             $passenger->setHandicap($faker->boolean);
             $passenger->setPhoneNumber($faker->regexify('\+[0-9]{2,3}[0-9]{9}'));
             $manager->persist($passenger);
+
+            // Prevent Memory error
+            if ($i % self::FLUSH_LIMIT == 0) {
+                $manager->flush();
+            }
         }
 
-        $manager->flush();
+        if (self::QT > 0 && self::QT % self::FLUSH_LIMIT != 0) {
+            $manager->flush();
+        }
     }
 
     public function getDependencies()

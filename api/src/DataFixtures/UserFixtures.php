@@ -21,7 +21,6 @@ class UserFixtures extends Fixture
             $user->setFirstname($faker->firstName);
             $user->setLastname($faker->lastName);
             $user->setEmail($faker->email);
-            //$user->setPassword($faker->password);
             $user->setPassword("Azerty1234");
             $manager->persist($user);
         }

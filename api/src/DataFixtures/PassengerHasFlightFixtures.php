@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Airport;
+use App\Entity\FlightSchedule;
 use App\Entity\Passenger;
 use App\Entity\PassengerHasFlight;
 use App\Entity\Seat;
@@ -13,22 +13,33 @@ use Faker;
 
 class PassengerHasFlightFixtures extends Fixture implements DependentFixtureInterface
 {
-    const QT = 800;
+    const QT = 1500;
+    const FLUSH_LIMIT = 50;
 
     public function load(ObjectManager $manager)
     {
         $faker = Faker\Factory::create('fr_FR');
 
-        $passengers = $manager->getRepository(Passenger::class)->findAll();
-        $airports = $manager->getRepository(Airport::class)->findAll();
         $seats = $manager->getRepository(Seat::class)->findAll();
+        $passengers = $manager->getRepository(Passenger::class)->findAll();
+        $flights = $manager->getRepository(FlightSchedule::class)->findAll();
 
         for ($i = 0; $i < self::QT; $i++) {
             $pasHasFlight = new PassengerHasFlight();
+            $pasHasFlight->setSeats($faker->randomElement($seats));
+            $pasHasFlight->setPassengers($faker->randomElement($passengers));
+            $pasHasFlight->setFlightSchedules($faker->randomElement($flights));
             $manager->persist($pasHasFlight);
+
+            // Prevent Memory error
+            if ($i % self::FLUSH_LIMIT == 0) {
+                $manager->flush();
+            }
         }
 
-        $manager->flush();
+        if (self::QT > 0 && self::QT % self::FLUSH_LIMIT != 0) {
+            $manager->flush();
+        }
     }
 
     public function getDependencies()
