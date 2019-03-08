@@ -2,8 +2,8 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\City;
 use App\Entity\Airport;
+use App\Entity\City;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -11,7 +11,7 @@ use Faker;
 
 class AirportFixtures extends Fixture implements DependentFixtureInterface
 {
-    const QT = 1500;
+    const QT = 100;
 
     public function load(ObjectManager $manager)
     {
@@ -24,7 +24,7 @@ class AirportFixtures extends Fixture implements DependentFixtureInterface
             $airport->setName('Airport ' . $faker->unique()->name);
             $airport->setCode($faker->unique()->regexify('[A-Z]{3}'));
             $airport->setAircraftCapacity($faker->numberBetween($min = 0, $max = 50));
-            $airport->setCity($faker->randomElement($cities));
+            $airport->setCity($faker->unique()->randomElement($cities));
             $manager->persist($airport);
         }
 
