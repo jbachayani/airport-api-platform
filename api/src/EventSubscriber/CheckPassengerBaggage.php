@@ -14,13 +14,6 @@ final class CheckPassengerBaggage implements EventSubscriberInterface
 {
     const MAX_BAGGAGE = 5;
 
-    private $manager;
-
-
-    public function __construct(ObjectManager $manager) {
-        $this->manager = $manager;
-    }
-
     public static function getSubscribedEvents() {
         return [
             KernelEvents::VIEW => ['verify', EventPriorities::PRE_WRITE],
