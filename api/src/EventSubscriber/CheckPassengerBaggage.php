@@ -3,7 +3,6 @@ namespace App\EventSubscriber;
 
 use ApiPlatform\Core\EventListener\EventPriorities;
 use App\Entity\Passenger;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,7 +28,7 @@ final class CheckPassengerBaggage implements EventSubscriberInterface
         }
 
         if ($passenger->getBaggage() > CheckPassengerBaggage::MAX_BAGGAGE) {
-            $event->setResponse(new JsonResponse("Max luggages for ticket reached (max " . CheckPassengerBaggage::MAX_BAGGAGE . ")", 400));
+            $event->setResponse(new JsonResponse("Vous ne pouver emporter que " . CheckPassengerBaggage::MAX_BAGGAGE . " baggages", 400));
         }
     }
 }
