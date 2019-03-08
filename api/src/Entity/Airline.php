@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource
@@ -14,6 +15,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Airline
 {
     /**
+     * @var int
+     *
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -21,26 +24,42 @@ class Airline
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255, nullable=false, unique=true)
+     * @Assert\NotNull
+     * @Assert\Type(type="string")
      */
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255, nullable=false)
+     * @Assert\NotNull
+     * @Assert\Type(type="string")
      */
     private $address;
 
     /**
-     * @ORM\Column(type="integer")
+     * @var int
+     *
+     * @ORM\Column(type="integer", nullable=false, unique=true)
+     * @Assert\Type(type="int")
      */
     private $code;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @var int
+     *
+     * @ORM\Column(type="boolean", nullable=false)
+     * @Assert\NotNull
      */
     private $active;
 
     /**
+     * @var \DateTime
+     *
      * @ORM\Column(type="date")
      */
     private $creation_date;

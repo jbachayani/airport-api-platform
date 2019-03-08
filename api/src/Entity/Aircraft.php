@@ -40,7 +40,7 @@ class Aircraft
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=80)
+     * @ORM\Column(type="string", length=80, nullable=false)
      * @Groups({"aircraft_read", "aircraft_write"})
      * @Assert\NotNull
      * @Assert\Type(type="string")
@@ -50,7 +50,7 @@ class Aircraft
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=false)
      * @Groups({"aircraft_read", "aircraft_write"})
      * @Assert\NotNull
      * @Assert\Type(type="string")
@@ -78,7 +78,7 @@ class Aircraft
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=false)
      * @Groups({"aircraft_read", "aircraft_write"})
      * @Assert\NotNull
      * @Assert\Type(type="string")

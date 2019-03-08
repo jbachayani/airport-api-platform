@@ -27,7 +27,7 @@ class User implements UserInterface
      * @var string
      *
      * @Assert\NotNull
-     * @ORM\Column(type="string", length=120)
+     * @ORM\Column(type="string", length=120, nullable=false)
      */
     private $lastname;
 
@@ -35,14 +35,14 @@ class User implements UserInterface
      * @var string
      *
      * @Assert\NotNull
-     * @ORM\Column(type="string", length=120)
+     * @ORM\Column(type="string", length=120, nullable=false)
      */
     private $firstname;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=320)
+     * @ORM\Column(type="string", length=320, nullable=false, unique=true)
      * @Assert\NotNull
      * @Assert\Type(type="string")
      * @Assert\Email(
@@ -55,7 +55,7 @@ class User implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=false)
      * @Assert\NotNull
      * @Assert\Type(type="string")
      */
