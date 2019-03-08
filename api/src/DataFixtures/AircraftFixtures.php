@@ -27,6 +27,7 @@ class AircraftFixtures extends Fixture implements DependentFixtureInterface
             $aircraft->setType($faker->ean8);
             $aircraft->setWeight($faker->randomFloat($min = 0.0, $max = 800000.0));
             $aircraft->setManufacturer($faker->randomElement($manufacturers));
+            $aircraft->setSeatAvailable($faker->numberBetween($min = 0, $max = 300));
             $manager->persist($aircraft);
         }
 

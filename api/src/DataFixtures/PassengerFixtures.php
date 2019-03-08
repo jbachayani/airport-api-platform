@@ -23,7 +23,7 @@ class PassengerFixtures extends Fixture implements DependentFixtureInterface
             $passenger = new Passenger();
             $passenger->setFirstName($faker->firstName);
             $passenger->setLastName($faker->lastName);
-            $passenger->setEmail($faker->email);
+            $passenger->setEmail($faker->unique()->email);
             $passenger->setBaggage($faker->numberBetween($min = 0, $max = 5));
             $passenger->setBirthDate($faker->dateTime);
             $passenger->setHandicap($faker->boolean);
