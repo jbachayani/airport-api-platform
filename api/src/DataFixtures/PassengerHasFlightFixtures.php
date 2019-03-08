@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Airport;
 use App\Entity\Passenger;
+use App\Entity\PassengerHasFlight;
 use App\Entity\Seat;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;

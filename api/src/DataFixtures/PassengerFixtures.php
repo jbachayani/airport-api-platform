@@ -10,7 +10,7 @@ use Faker;
 
 class PassengerFixtures extends Fixture implements DependentFixtureInterface
 {
-    const QT = 10000;
+    const QT = 1000;
 
     public function load(ObjectManager $manager)
     {
