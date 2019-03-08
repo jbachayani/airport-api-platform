@@ -65,6 +65,12 @@ class Aircraft
     private $type;
 
     /**
+     * @ORM\Column(type="integer")
+     * @Groups({"aircraft_read", "aircraft_write"})
+     */
+    private $seatAvailable;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Seat", mappedBy="aircraft")
      * @Groups({"aircraft_read", "aircraft_write"})
      * @ApiSubresource()
@@ -88,11 +94,6 @@ class Aircraft
      * @Groups({"aircraft_read", "aircraft_write"})
      */
     private $flightSchedules;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $seatAvailable;
 
     public function __construct()
     {
