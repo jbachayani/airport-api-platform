@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource()
@@ -21,22 +22,32 @@ class User implements UserInterface
     private $id;
 
     /**
+     * @Assert\NotNull
      * @ORM\Column(type="string", length=120)
      */
     private $lastname;
 
     /**
+     * @Assert\NotNull
      * @ORM\Column(type="string", length=120)
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=320)
+     * @Assert\NotNull
+     * @Assert\Type(type="string")
+     * @Assert\Email(
+     *     message = "The email '{{ value }}' is not a valid email.",
+     *     checkMX = false
+     * )
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull
+     * @Assert\Type(type="string")
      */
     private $password;
 
