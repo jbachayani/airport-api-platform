@@ -80,18 +80,21 @@ class Aircraft
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Manufacturer", inversedBy="aircrafts")
      * @Groups({"aircraft_read", "aircraft_write"})
+     * @ApiSubresource()
      */
     private $manufacturer;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Airline", inversedBy="aircraft")
      * @Groups({"aircraft_read", "aircraft_write"})
+     * @ApiSubresource()
      */
     private $airline;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\FlightSchedule", mappedBy="aircraft")
      * @Groups({"aircraft_read", "aircraft_write"})
+     *
      */
     private $flightSchedules;
 
