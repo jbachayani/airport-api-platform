@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource
@@ -19,17 +20,29 @@ class Airport
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255, nullable=false)
+     * @Assert\NotNull
+     * @Assert\Type(type="string")
      */
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=3)
+     * @var string
+     *
+     * @ORM\Column(type="string", length=3, nullable=false, unique=true)
+     * @Assert\NotNull
+     * @Assert\Type(type="string")
      */
     private $code;
 
     /**
+     * @var int
+     *
      * @ORM\Column(type="integer")
+     * @Assert\NotNull
+     * @Assert\Type(type="int")
      */
     private $aircraftCapacity;
 
