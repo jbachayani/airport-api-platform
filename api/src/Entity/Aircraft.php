@@ -3,12 +3,26 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource
+ * @ApiResource(
+ *     normalizationContext={"groups"={"aircraft_read"}},
+ *     denormalizationContext={"groups"={"aircraft_write"}},
+ *     itemOperations={
+ *         "get",
+ *         "put",
+ *         "delete"
+ *     },
+ *     collectionOperations={
+ *          "get",
+ *          "post",
+ *     }
+ * )
  * @ORM\Entity(repositoryClass="App\Repository\AircraftRepository")
  */
 class Aircraft
@@ -22,46 +36,56 @@ class Aircraft
 
     /**
      * @ORM\Column(type="string", length=80)
+     * @Groups({"aircraft_read", "aircraft_write"})
      */
     private $serialNumber;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"aircraft_read", "aircraft_write"})
      */
     private $model;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"aircraft_read", "aircraft_write"})
      */
     private $capacity;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Groups({"aircraft_read", "aircraft_write"})
      */
     private $weight;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"aircraft_read", "aircraft_write"})
      */
     private $type;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Seat", mappedBy="aircraft")
+     * @Groups({"aircraft_read", "aircraft_write"})
+     * @ApiSubresource()
      */
     private $seats;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Manufacturer", inversedBy="aircrafts")
+     * @Groups({"aircraft_read", "aircraft_write"})
      */
     private $manufacturer;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Airline", inversedBy="aircraft")
+     * @Groups({"aircraft_read", "aircraft_write"})
      */
     private $airline;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\FlightSchedule", mappedBy="aircraft")
+     * @Groups({"aircraft_read", "aircraft_write"})
      */
     private $flightSchedules;
 
