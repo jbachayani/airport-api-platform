@@ -24,7 +24,7 @@ class City
     private $name;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Country", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Country", inversedBy="cities")
      */
     private $country;
 
